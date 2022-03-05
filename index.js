@@ -9,6 +9,12 @@ const app = express();
 const connectDB = require('./config/db');
 connectDB();
 
+//middleware
+app.use(express.json());
+
+//routes
+app.use('/v1/computers', require('./routes/computerRoutes'));
+
 //set port
 const PORT = process.env.PORT
 app.listen(PORT, () => console.log(`Listening on port ${PORT}...`));
