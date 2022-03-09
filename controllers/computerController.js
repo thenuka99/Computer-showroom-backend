@@ -1,17 +1,47 @@
-const Computer = require('../models/computers');
+const Computer = require('../models/computers');//model
+const ResponseService = require('../utils/ResponseService'); // Response service
 
-exports.createNew = (req, res, next) => {
-    res.send('create new computer route');
+exports.createNew = (req, res) => {
+
+    let newcomputer = new Computer(req.body);
+    newcomputer.save((err) => {
+        ResponseService.generalResponse(err, res, 'new computer created successfully');
+    });
 };
 
-exports.getAll = (req, res, next) => {
-    res.send('get all computer routes');
-};
+exports.getAll = (async (req, res) => {
+    const limit = req.query.limit ? parseInt(req.query.limit) : 10;
+    const page = req.query.page ? parseInt(req.query.page) : 0;
+    const _count = await Computer.countDocuments();
+    const totalPages = Math.ceil(_count / limit);
 
-exports.updateById = (req, res, next) => {
-    res.send('update computer route');
+    Computer.find((err, doc) => {
+        const newPayload = {
+            docs: doc,
+            totalPages: totalPages,
+            totalpost: _count
+        }
+        ResponseService.generalPayloadResponse(err, newPayload, res);
+    }).sort({ addedOn: -1 })
+        .skip(page * limit).limit(limit);
+});
+
+exports.updateById = (req, res) => {
+    Computer.findByIdAndUpdate(
+        req.body.id,
+        {
+           $set:req.body
+        }, (err, doc) => {
+            ResponseService.generalResponse(err, res, 'computer updated successfully');
+        });
 };
 
 exports.deleteById = (req, res, next) => {
-    res.send('delete computer route');
+    Computer.findByIdAndRemove(
+        req.body.id,
+        {
+           $set:req.body
+        }, (err, doc) => {
+            ResponseService.generalResponse(err, res, 'computer deleted successfully');
+        });
 };

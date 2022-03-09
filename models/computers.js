@@ -1,22 +1,26 @@
+const { ObjectId } = require('mongoose');
 const mongoose = require("mongoose");
 
 const computerSchema = new mongoose.Schema({
+  id: {
+    type: String,
+  },
   name: {
     type: String,
-    required: [true, "Please provide a name to the computer"],
-    unique: true,
+    // required: [true, "Please provide a name to the computer"],
+    // unique: true,
   },
   rating: {
     type: Number,
-    required: [true, "Please provide a rating for a computer"],
+    // required: [true, "Please provide a rating for a computer"],
   },
   description: {
     type: String,
-    required: [true, "Please provide computer with description"],
+    // required: [true, "Please provide computer with description"],
   },
   price: {
     type: Number,
-    required: [true, "Please provide computer with price"],
+    // required: [true, "Please provide computer with price"],
   },
 });
 
