@@ -1,6 +1,9 @@
 // this will find and all the .env  file in root folder
 require('dotenv').config();
 
+//cors for handeling ports
+const cors = require("cors");
+
 //express
 const express = require('express');
 const app = express();
@@ -11,6 +14,7 @@ connectDB();
 
 //middleware
 app.use(express.json());
+app.use(cors());
 
 //routes
 app.use('/v1/computers', require('./routes/computerRoutes'));

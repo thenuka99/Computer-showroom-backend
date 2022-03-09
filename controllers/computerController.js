@@ -28,7 +28,7 @@ exports.getAll = (async (req, res) => {
 
 exports.updateById = (req, res) => {
     Computer.findByIdAndUpdate(
-        req.body.id,
+        req.params.id,
         {
            $set:req.body
         }, (err, doc) => {
@@ -38,7 +38,7 @@ exports.updateById = (req, res) => {
 
 exports.deleteById = (req, res, next) => {
     Computer.findByIdAndRemove(
-        req.body.id,
+        req.params.id,
         {
            $set:req.body
         }, (err, doc) => {

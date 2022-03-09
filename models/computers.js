@@ -7,20 +7,19 @@ const computerSchema = new mongoose.Schema({
   },
   name: {
     type: String,
-    // required: [true, "Please provide a name to the computer"],
-    // unique: true,
+    required: [true, "Please provide a name to the computer"],
   },
   rating: {
     type: Number,
-    // required: [true, "Please provide a rating for a computer"],
+    required: [true, "Please provide a rating for a computer"],
   },
   description: {
     type: String,
-    // required: [true, "Please provide computer with description"],
+    required: [true, "Please provide computer with description"],
   },
   price: {
     type: Number,
-    // required: [true, "Please provide computer with price"],
+    required: [true, "Please provide computer with price"],
   },
 });
 
